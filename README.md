@@ -2,44 +2,40 @@ Instrucciones de Uso
 Ejecutar el Servidor
 
 Para ejecutar el servidor, sigue estos pasos:
+Compila el programa del servidor utilizando el siguiente comando:
 
-    Compila el programa del servidor utilizando el siguiente comando:
+    
+    gcc -o servidor servidor.c
 
-    bash
-
-gcc -o servidor servidor.c
+    
 
 Ejecuta el servidor:
 
-bash
+    
+    ./servidor
 
-./servidor /servidor
-
+    
 Una vez iniciado, el servidor mostrará un mensaje indicando en qué puerto está escuchando. Por ejemplo:
 
-yaml
 
     El servidor está escuchando en el puerto: 39479
 
 Ejecutar la Interfaz del Cliente
 
 Para ejecutar la interfaz del lado del cliente, sigue estos pasos:
+Asegúrate de tener instalada la biblioteca de la interfaz. Puedes instalarla ejecutando:
 
-    Asegúrate de tener instalada la biblioteca de la interfaz. Puedes instalarla ejecutando:
+    sudo apt-get install libgtk-3-dev
 
-    bash
-
-sudo apt-get install libgtk-3-dev
 
 Compila el programa de la interfaz utilizando el siguiente comando:
 
-bash
 
-gcc -o interfaz interfaz.c
+    gcc -o interfaz interfaz.c `pkg-config --cflags --libs gtk+-3.0`
+
 
 Ejecuta la interfaz del cliente, especificando el host y el puerto del servidor. Por ejemplo:
 
-bash
 
     ./interfaz localhost 39479
 
