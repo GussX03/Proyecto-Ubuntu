@@ -15,6 +15,7 @@ struct solicitud {
     char destino[50];
     char horario[50];
     char boleto_tipo[50];
+    int costo_boleto;
 };
 
 int main(int argc, char *argv[]) {
@@ -63,13 +64,24 @@ int main(int argc, char *argv[]) {
             close(nuevo);
             continue;
         }
-        
+        // COSTO DE BOLETO
+        #include <string.h>
+
+        if (strcmp(solicitud_recibida.boleto_tipo, "Ordinario $50") == 0) {
+            solicitud_recibida.costo_boleto = 50;
+          }else if(strcmp(solicitud_recibida.boleto_tipo, "1ra Directo $100") == 0) {
+            solicitud_recibida.costo_boleto = 100;
+          }else if(strcmp(solicitud_recibida.boleto_tipo, "Gl Premier $150") == 0) {
+            solicitud_recibida.costo_boleto = 150;
+          }
+  
         // Registrar la solicitud recibida
         printf("Solicitud recibida:\n");
         printf("Nombre : %s\n", solicitud_recibida.nombre);
         printf("Destino: %s\n", solicitud_recibida.destino);
         printf("Horario: %s\n", solicitud_recibida.horario);
         printf("Tipo de boleto: %s\n", solicitud_recibida.boleto_tipo);
+        printf("Costo de boleto: %d\n", solicitud_recibida.costo_boleto);
         
         // Enviar confirmación al cliente
         if (send(nuevo, "Solicitud recibida por el servidor\n", 35, 0) == -1) {

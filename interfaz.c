@@ -22,6 +22,7 @@ struct solicitud {
     char destino[50];
     char horario[50];
     char boleto_tipo[50];
+    int costo_boleto;
 };
 
 
@@ -68,12 +69,15 @@ void on_button_clicked(GtkWidget *widget, gpointer data) {
     switch (gtk_combo_box_get_active(GTK_COMBO_BOX(data + 4))) {
         case 0:
             boleto_tipo = "Ordinario $50";
+            nueva_solicitud.costo_boleto=50;
             break;
         case 1:
             boleto_tipo = "1ra Directo $100";
+            nueva_solicitud.costo_boleto=100;
             break;
         case 2:
             boleto_tipo = "Gl Premier $150";
+            nueva_solicitud.costo_boleto=150;
             break;
         default:
             boleto_tipo = "Error";
@@ -126,18 +130,19 @@ void on_button_show_data_clicked(GtkWidget *widget, gpointer data) { // boton de
     GtkWidget *combo_destino = gtk_grid_get_child_at(GTK_GRID(grid), 1, 1);
     GtkWidget *combo_horario = gtk_grid_get_child_at(GTK_GRID(grid), 1, 2);
     GtkWidget *combo_boleto = gtk_grid_get_child_at(GTK_GRID(grid), 1, 3);
+    
 
     nombre = g_strdup_printf("%s", gtk_entry_get_text(GTK_ENTRY(entry)));
     destino = g_strdup_printf("%s", gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(combo_destino)));
     horario = g_strdup_printf("%s", gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(combo_horario)));
     boleto = g_strdup_printf("%s", gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(combo_boleto)));
-    // Enviar la solicitud al 
+    // Enviar la solicitud al servidor
     // Copiar los valores desde los punteros a los miembros de la estructura
     strcpy(nueva_solicitud.nombre, nombre);
     strcpy(nueva_solicitud.destino, destino);
     strcpy(nueva_solicitud.horario, horario);
     strcpy(nueva_solicitud.boleto_tipo, boleto);
-
+    
     nueva_solicitud.tipo = 1; // Tipo de mensaje arbitrario
     if (send(mi_socket, &nueva_solicitud, sizeof(struct solicitud), 0) == -1) {
         perror("Error al enviar la solicitud al servidor");
@@ -182,7 +187,16 @@ void on_button_show_data_clicked(GtkWidget *widget, gpointer data) { // boton de
     label = gtk_label_new(boleto);
     gtk_grid_attach(GTK_GRID(grid), label, 0, 3, 1, 1);
     g_free(boleto);
+    GtkWidget *label22;
 
+// Crear el label con un texto inicial
+label22 = gtk_label_new("\n\n\nBOLETO COMPRADO, DISFRUTE SU VIAJE¡");
+
+// Agregar el label al contenedor (en este caso, un grid)
+gtk_grid_attach(GTK_GRID(grid), label22, 0, 4, 1, 1);
+
+// Mostrar el label
+gtk_widget_show(label22);
     gtk_widget_show_all(new_window);
 }
 
