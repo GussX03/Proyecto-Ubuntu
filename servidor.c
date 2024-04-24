@@ -19,7 +19,7 @@ struct solicitud {
 };
 
 int main(int argc, char *argv[]) {
-    int mi_socket, nuevo, tam;
+    int mi_socket, nuevo, tam, dinero_total=0;
     struct sockaddr_in mi_estructura;
     struct solicitud solicitud_recibida;
     mi_estructura.sin_family = AF_INET;
@@ -64,8 +64,7 @@ int main(int argc, char *argv[]) {
             close(nuevo);
             continue;
         }
-        // COSTO DE BOLETO
-        #include <string.h>
+        // COSTO DE BOLETO COMPARANDO QUE TIPO DE BOLETO ES
 
         if (strcmp(solicitud_recibida.boleto_tipo, "Ordinario $50") == 0) {
             solicitud_recibida.costo_boleto = 50;
@@ -82,6 +81,11 @@ int main(int argc, char *argv[]) {
         printf("Horario: %s\n", solicitud_recibida.horario);
         printf("Tipo de boleto: %s\n", solicitud_recibida.boleto_tipo);
         printf("Costo de boleto: %d\n", solicitud_recibida.costo_boleto);
+        // Calcular dinero total
+        dinero_total += solicitud_recibida.costo_boleto;
+        
+        // Registrar el dinero total recibido hasta ahora
+        printf("Dinero total recibido hasta ahora: %d\n", dinero_total);
         
         // Enviar confirmación al cliente
         if (send(nuevo, "Solicitud recibida por el servidor\n", 35, 0) == -1) {

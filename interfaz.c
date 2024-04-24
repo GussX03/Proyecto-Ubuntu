@@ -16,7 +16,7 @@ int mi_socket;
     struct solicitud nueva_solicitud;
 
 
-struct solicitud {
+struct solicitud { // ESTRUCTURA DE LA SOLICITUD
     long tipo;
     char nombre[50];
     char destino[50];
@@ -131,7 +131,7 @@ void on_button_show_data_clicked(GtkWidget *widget, gpointer data) { // boton de
     GtkWidget *combo_horario = gtk_grid_get_child_at(GTK_GRID(grid), 1, 2);
     GtkWidget *combo_boleto = gtk_grid_get_child_at(GTK_GRID(grid), 1, 3);
     
-
+    // CONSEGUIMOS LOS DATOS
     nombre = g_strdup_printf("%s", gtk_entry_get_text(GTK_ENTRY(entry)));
     destino = g_strdup_printf("%s", gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(combo_destino)));
     horario = g_strdup_printf("%s", gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(combo_horario)));
@@ -164,7 +164,7 @@ void on_button_show_data_clicked(GtkWidget *widget, gpointer data) { // boton de
     // Cerrar el socket
     close(mi_socket);
 
-    // Crear nueva ventana para mostrar los datos
+    // Crear nueva ventana para mostrar los datos Y VALIDAR QUE SE MANDARON
     new_window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
     gtk_window_set_title(GTK_WINDOW(new_window), "Datos Seleccionados");
     gtk_window_set_default_size(GTK_WINDOW(new_window), 200, 150);
@@ -189,19 +189,15 @@ void on_button_show_data_clicked(GtkWidget *widget, gpointer data) { // boton de
     g_free(boleto);
     GtkWidget *label22;
 
-// Crear el label con un texto inicial
-label22 = gtk_label_new("\n\n\nBOLETO COMPRADO, DISFRUTE SU VIAJE¡");
-
-// Agregar el label al contenedor (en este caso, un grid)
-gtk_grid_attach(GTK_GRID(grid), label22, 0, 4, 1, 1);
-
-// Mostrar el label
-gtk_widget_show(label22);
+    // Crear el label con un texto de confirmacion
+    label22 = gtk_label_new("\n\n\nBOLETO COMPRADO, DISFRUTE SU VIAJE¡");
+    gtk_grid_attach(GTK_GRID(grid), label22, 0, 4, 1, 1);
+    gtk_widget_show(label22);
     gtk_widget_show_all(new_window);
 }
 
 
-int main(int argc, char *argv[]) {
+int main(int argc, char *argv[]) { // funcion main
     GtkWidget *window;
     GtkWidget *button;
     GtkWidget *grid;
@@ -300,7 +296,7 @@ int main(int argc, char *argv[]) {
     gtk_combo_box_set_active(GTK_COMBO_BOX(combo_boleto), 0);
     gtk_grid_attach(GTK_GRID(grid), combo_boleto, 1, 3, 1, 1);
    
-
+   // mandamos los datos al servidor
     button = gtk_button_new_with_label("Mostrar Datos");
     g_signal_connect(button, "clicked", G_CALLBACK(on_button_show_data_clicked), (gpointer)window);
     gtk_grid_attach(GTK_GRID(grid), button, 0, 6, 2, 1);
