@@ -1,6 +1,5 @@
-Instrucciones de Uso
-Ejecutar el Servidor
-
+Instrucciones de Uso para el proyecto.
+-- Ejecutar el Servidor
 Para ejecutar el servidor, sigue estos pasos:
 Compila el programa del servidor utilizando el siguiente comando:
 
@@ -20,7 +19,7 @@ Una vez iniciado, el servidor mostrará un mensaje indicando en qué puerto est�
 
     El servidor está escuchando en el puerto: 39479
 
-Ejecutar la Interfaz del Cliente
+-- Ejecutar la Interfaz del Cliente
 
 Para ejecutar la interfaz del lado del cliente, sigue estos pasos:
 Asegúrate de tener instalada la biblioteca de la interfaz. Puedes instalarla ejecutando:
