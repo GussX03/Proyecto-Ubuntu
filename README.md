@@ -21,7 +21,7 @@ Una vez iniciado, el servidor mostrará un mensaje indicando en qué puerto est�
 
 -- Ejecutar la Interfaz del Cliente
 
-Para ejecutar la interfaz del lado del cliente, sigue estos pasos:
+###  Para ejecutar la interfaz del lado del cliente, sigue estos pasos:
 Asegúrate de tener instalada la biblioteca de la interfaz. Puedes instalarla ejecutando:
 
     sudo apt-get install libgtk-3-dev
