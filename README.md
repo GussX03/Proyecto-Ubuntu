@@ -1,5 +1,5 @@
-Instrucciones de Uso para el proyecto.
--- Ejecutar el Servidor
+#### Instrucciones de Uso para el proyecto.
+
 Para ejecutar el servidor, sigue estos pasos:
 Compila el programa del servidor utilizando el siguiente comando:
 
