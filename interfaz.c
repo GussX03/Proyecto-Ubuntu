@@ -210,6 +210,7 @@ int main(int argc, char *argv[]) { // funcion main
     GtkWidget *label_destino;
     GtkWidget *label_horario;
     GtkWidget *label_boleto;
+    GtkWidget *image1, *image2;
     
     gtk_init(&argc, &argv);
 
@@ -247,14 +248,23 @@ int main(int argc, char *argv[]) { // funcion main
     grid = gtk_grid_new();
     gtk_container_add(GTK_CONTAINER(window), grid);
 
+    // Crear y agregar la primera imagen en la esquina superior izquierda
+    image1 = gtk_image_new_from_file("buap.png"); // Ruta de la primera imagen
+    gtk_image_set_pixel_size(GTK_IMAGE(image1), 1.2); // Establecer el tamaño en píxeles
+    gtk_grid_attach(GTK_GRID(grid), image1, 0, 0, 1, 1);
+
+    // Crear y agregar la segunda imagen en la esquina superior derecha
+    image2 = gtk_image_new_from_file("icono2.png"); // Ruta de la segunda imagen
+    gtk_grid_attach(GTK_GRID(grid), image2, 1, 0, 1, 1);
+
     label_nombre = gtk_label_new("Nombre:");
-    gtk_grid_attach(GTK_GRID(grid), label_nombre, 0, 0, 1, 1);
+    gtk_grid_attach(GTK_GRID(grid), label_nombre, 0, 3, 1, 1);
 
     entry_nombre = gtk_entry_new();
-    gtk_grid_attach(GTK_GRID(grid), entry_nombre, 1, 0, 1, 1);
+    gtk_grid_attach(GTK_GRID(grid), entry_nombre, 1, 3, 1, 1);
 
     label_destino = gtk_label_new("Destino:");
-    gtk_grid_attach(GTK_GRID(grid), label_destino, 0, 1, 1, 1);
+    gtk_grid_attach(GTK_GRID(grid), label_destino, 0, 4, 1, 1);
 
     combo_destino = gtk_combo_box_text_new();
     gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(combo_destino), "Ciudad de México");
@@ -268,10 +278,10 @@ int main(int argc, char *argv[]) { // funcion main
     gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(combo_destino), "Acapulco");
     gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(combo_destino), "Oaxaca");
     gtk_combo_box_set_active(GTK_COMBO_BOX(combo_destino), 0);
-    gtk_grid_attach(GTK_GRID(grid), combo_destino, 1, 1, 1, 1);
+    gtk_grid_attach(GTK_GRID(grid), combo_destino, 1, 4, 1, 1);
 
     label_horario = gtk_label_new("Horario:");
-    gtk_grid_attach(GTK_GRID(grid), label_horario, 0, 2, 1, 1);
+    gtk_grid_attach(GTK_GRID(grid), label_horario, 0, 5, 1, 1);
 
     combo_horario = gtk_combo_box_text_new();
     gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(combo_horario), "Matutino 7-8 AM");
@@ -284,22 +294,22 @@ int main(int argc, char *argv[]) { // funcion main
     gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(combo_horario), "Nocturno 10-11 PM");
     gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(combo_horario), "Nocturno 11-12 PM");
     gtk_combo_box_set_active(GTK_COMBO_BOX(combo_horario), 0);
-    gtk_grid_attach(GTK_GRID(grid), combo_horario, 1, 2, 1, 1);
+    gtk_grid_attach(GTK_GRID(grid), combo_horario, 1, 5, 1, 1);
 
     label_boleto = gtk_label_new("Tipo de boleto:");
-    gtk_grid_attach(GTK_GRID(grid), label_boleto, 0, 3, 1, 1);
+    gtk_grid_attach(GTK_GRID(grid), label_boleto, 0, 6, 1, 1);
 
     combo_boleto = gtk_combo_box_text_new();
     gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(combo_boleto), "Ordinario $50");
     gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(combo_boleto), "1ra Directo $100");
     gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(combo_boleto), "Gl Premier $150");
     gtk_combo_box_set_active(GTK_COMBO_BOX(combo_boleto), 0);
-    gtk_grid_attach(GTK_GRID(grid), combo_boleto, 1, 3, 1, 1);
+    gtk_grid_attach(GTK_GRID(grid), combo_boleto, 1, 6, 1, 1); 
    
    // mandamos los datos al servidor
     button = gtk_button_new_with_label("Mostrar Datos");
     g_signal_connect(button, "clicked", G_CALLBACK(on_button_show_data_clicked), (gpointer)window);
-    gtk_grid_attach(GTK_GRID(grid), button, 0, 6, 2, 1);
+    gtk_grid_attach(GTK_GRID(grid), button, 0, 9, 2, 1);
 
     gtk_widget_show_all(window);
 
