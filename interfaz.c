@@ -122,14 +122,15 @@ void on_button_show_data_clicked(GtkWidget *widget, gpointer data) { // boton de
     GtkWidget *parent_window = GTK_WIDGET(data);
     GtkWidget *new_window;
     GtkWidget *label;
+    GtkWidget *image11;
     gchar *nombre, *destino, *horario, *boleto;
 
     // Obtener los datos de la ventana principal
     GtkWidget *grid = gtk_bin_get_child(GTK_BIN(parent_window));
-    GtkWidget *entry = gtk_grid_get_child_at(GTK_GRID(grid), 1, 0);
-    GtkWidget *combo_destino = gtk_grid_get_child_at(GTK_GRID(grid), 1, 1);
-    GtkWidget *combo_horario = gtk_grid_get_child_at(GTK_GRID(grid), 1, 2);
-    GtkWidget *combo_boleto = gtk_grid_get_child_at(GTK_GRID(grid), 1, 3);
+    GtkWidget *entry = gtk_grid_get_child_at(GTK_GRID(grid), 1, 3);
+    GtkWidget *combo_destino = gtk_grid_get_child_at(GTK_GRID(grid), 1, 4);
+    GtkWidget *combo_horario = gtk_grid_get_child_at(GTK_GRID(grid), 1, 5);
+    GtkWidget *combo_boleto = gtk_grid_get_child_at(GTK_GRID(grid), 1, 6);
     
     // CONSEGUIMOS LOS DATOS
     nombre = g_strdup_printf("%s", gtk_entry_get_text(GTK_ENTRY(entry)));
@@ -171,27 +172,32 @@ void on_button_show_data_clicked(GtkWidget *widget, gpointer data) { // boton de
 
     grid = gtk_grid_new();
     gtk_container_add(GTK_CONTAINER(new_window), grid);
+    image11 = gtk_image_new_from_file("ARRIBA.png"); // Ruta de la primera imagen
+    gtk_grid_attach(GTK_GRID(grid), image11, 0, 0, 1, 1);
 
     label = gtk_label_new(nombre);
-    gtk_grid_attach(GTK_GRID(grid), label, 0, 0, 1, 1);
+    gtk_grid_attach(GTK_GRID(grid), label, 0, 1, 1, 1);
     g_free(nombre);
 
     label = gtk_label_new(destino);
-    gtk_grid_attach(GTK_GRID(grid), label, 0, 1, 1, 1);
+    gtk_grid_attach(GTK_GRID(grid), label, 0, 2, 1, 1);
     g_free(destino);
 
     label = gtk_label_new(horario);
-    gtk_grid_attach(GTK_GRID(grid), label, 0, 2, 1, 1);
+    gtk_grid_attach(GTK_GRID(grid), label, 0, 3, 1, 1);
     g_free(horario);
 
     label = gtk_label_new(boleto);
-    gtk_grid_attach(GTK_GRID(grid), label, 0, 3, 1, 1);
+    gtk_grid_attach(GTK_GRID(grid), label, 0, 4, 1, 1);
     g_free(boleto);
+    
+
+
     GtkWidget *label22;
 
     // Crear el label con un texto de confirmacion
     label22 = gtk_label_new("\n\n\nBOLETO COMPRADO, DISFRUTE SU VIAJE¡");
-    gtk_grid_attach(GTK_GRID(grid), label22, 0, 4, 1, 1);
+    gtk_grid_attach(GTK_GRID(grid), label22, 0, 5, 1, 1);
     gtk_widget_show(label22);
     gtk_widget_show_all(new_window);
 }
@@ -249,12 +255,13 @@ int main(int argc, char *argv[]) { // funcion main
     gtk_container_add(GTK_CONTAINER(window), grid);
 
     // Crear y agregar la primera imagen en la esquina superior izquierda
-    image1 = gtk_image_new_from_file("buap.png"); // Ruta de la primera imagen
+    image1 = gtk_image_new_from_file("logo_chico.png"); // Ruta de la primera imagen
     gtk_image_set_pixel_size(GTK_IMAGE(image1), 1.2); // Establecer el tamaño en píxeles
     gtk_grid_attach(GTK_GRID(grid), image1, 0, 0, 1, 1);
 
     // Crear y agregar la segunda imagen en la esquina superior derecha
-    image2 = gtk_image_new_from_file("icono2.png"); // Ruta de la segunda imagen
+    image2 = gtk_image_new_from_file("SISTEMAS_OP.png"); // Ruta de la segunda imagen
+    gtk_image_set_pixel_size(GTK_IMAGE(image1), 1.2); // Establecer el tamaño en píxeles
     gtk_grid_attach(GTK_GRID(grid), image2, 1, 0, 1, 1);
 
     label_nombre = gtk_label_new("Nombre:");
@@ -307,7 +314,7 @@ int main(int argc, char *argv[]) { // funcion main
     gtk_grid_attach(GTK_GRID(grid), combo_boleto, 1, 6, 1, 1); 
    
    // mandamos los datos al servidor
-    button = gtk_button_new_with_label("Mostrar Datos");
+    button = gtk_button_new_with_label("IMPRIMIR TICKET");
     g_signal_connect(button, "clicked", G_CALLBACK(on_button_show_data_clicked), (gpointer)window);
     gtk_grid_attach(GTK_GRID(grid), button, 0, 9, 2, 1);
 
