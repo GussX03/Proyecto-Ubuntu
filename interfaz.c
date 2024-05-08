@@ -53,7 +53,7 @@ void on_button_clicked(GtkWidget *widget, gpointer data) {
             horario_txt = "Vespertino 5-7 PM";
             break;
         case 6:
-            horario_txt = "Nocturno 8-9 PM";
+            horario_txt = "Nocturno 7-9 PM";
             break;
         case 7:
             horario_txt = "Nocturno 10-11 PM";
