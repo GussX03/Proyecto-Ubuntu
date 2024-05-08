@@ -93,8 +93,8 @@ void on_button_clicked(GtkWidget *widget, gpointer data) {
     GtkWidget *grid;
 
     window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
-    gtk_window_set_title(GTK_WINDOW(window), "Datos Seleccionados");
-    gtk_window_set_default_size(GTK_WINDOW(window), 200, 150);
+    gtk_window_set_title(GTK_WINDOW(window), "TICKET");
+    gtk_window_set_default_size(GTK_WINDOW(window), 300, 250);
 
     grid = gtk_grid_new();
     gtk_container_add(GTK_CONTAINER(window), grid);
@@ -223,6 +223,8 @@ int main(int argc, char *argv[]) { // funcion main
     gtk_init(&argc, &argv);
 
     window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+    gtk_window_set_default_size(GTK_WINDOW(window), 800, 600);
+
     // SERVIDOR 
     if (argc != 3) {
         printf("error: modo de empleo: cliente ip puerto\n");
@@ -272,8 +274,11 @@ int main(int argc, char *argv[]) { // funcion main
     entry_nombre = gtk_entry_new();
     gtk_grid_attach(GTK_GRID(grid), entry_nombre, 1, 3, 1, 1);
 
+
     label_destino = gtk_label_new("Destino:");
     gtk_grid_attach(GTK_GRID(grid), label_destino, 0, 4, 1, 1);
+    
+
 
     combo_destino = gtk_combo_box_text_new();
     gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(combo_destino), "Ciudad de México");
@@ -291,6 +296,9 @@ int main(int argc, char *argv[]) { // funcion main
 
     label_horario = gtk_label_new("Horario:");
     gtk_grid_attach(GTK_GRID(grid), label_horario, 0, 5, 1, 1);
+    // Configuración del tamaño del GtkLabel
+    gtk_widget_set_size_request(label_nombre, 200, -1); // Anchura de 200 píxeles, altura predeterminada
+
 
     combo_horario = gtk_combo_box_text_new();
     gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(combo_horario), "Matutino 7-8 AM");
@@ -307,7 +315,10 @@ int main(int argc, char *argv[]) { // funcion main
 
     label_boleto = gtk_label_new("Tipo de boleto:");
     gtk_grid_attach(GTK_GRID(grid), label_boleto, 0, 6, 1, 1);
-
+    gtk_widget_set_size_request(label_nombre, 150, 90);
+    gtk_widget_set_size_request(label_destino, 150, 90);
+    gtk_widget_set_size_request(label_horario, 150, 90);
+    gtk_widget_set_size_request(label_boleto, 150, 90);
     combo_boleto = gtk_combo_box_text_new();
     gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(combo_boleto), "Ordinario $50");
     gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(combo_boleto), "1ra Directo $100");
@@ -317,6 +328,13 @@ int main(int argc, char *argv[]) { // funcion main
    
    // mandamos los datos al servidor
     button = gtk_button_new_with_label("IMPRIMIR TICKET");
+     gtk_widget_set_size_request(button, 800, 90); 
+     // Configuración de márgenes para un botón
+    gtk_widget_set_margin_start(button, 10);  // Margen izquierdo
+    gtk_widget_set_margin_end(button, 10);    // Margen derecho
+    gtk_widget_set_margin_top(button, 20);     // Margen superior
+    gtk_widget_set_margin_bottom(button, 5);  // Margen inferior
+
     g_signal_connect(button, "clicked", G_CALLBACK(on_button_show_data_clicked), (gpointer)window);
     gtk_grid_attach(GTK_GRID(grid), button, 0, 9, 2, 1);
 
