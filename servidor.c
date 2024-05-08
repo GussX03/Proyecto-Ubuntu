@@ -82,39 +82,101 @@ int main(int argc, char *argv[]) {
         if (strcmp(solicitud_recibida.boleto_tipo, "Ordinario $50") == 0) {
             solicitud_recibida.costo_boleto = 50;
             cupo_ordinario++;
-            printf("Asientos restante %d\n", maximo_ordinario-cupo_ordinario);
+            if (cupo_ordinario>2){
+                printf("Cupo lleno, intente con otro tipo de boleto :)\n");
+                close(nuevo);
+            }else{
+                printf("Asientos restante %d\n", maximo_ordinario-cupo_ordinario);
+                printf("Nombre : %s\n", solicitud_recibida.nombre);
+                printf("Destino: %s\n", solicitud_recibida.destino);
+                printf("Horario: %s\n", solicitud_recibida.horario);
+                printf("Tipo de boleto: %s\n", solicitud_recibida.boleto_tipo);
+                printf("Costo de boleto: %d\n", solicitud_recibida.costo_boleto);
+
+        
+                // Calcular dinero total
+                dinero_total += solicitud_recibida.costo_boleto;
+        
+                // Registrar el dinero total recibido hasta ahora y cupo restante
+                printf("Dinero total recibido hasta ahora: %d\n", dinero_total);
+        
+                // Enviar confirmación al cliente
+                if (send(nuevo, "Solicitud recibida por el servidor\n", 35, 0) == -1) {
+                    perror("Error al enviar la confirmación al cliente");
+                    close(nuevo);
+                    continue;
+                }
+        
+                // Cerrar la conexión con el cliente
+                close(nuevo);
+            }
         } else if (strcmp(solicitud_recibida.boleto_tipo, "1ra Directo $100") == 0) {
             solicitud_recibida.costo_boleto = 100;
             cupo_directo++;
-            printf("Asientos restante %d\n", maximo_directo-cupo_directo);
+            if(cupo_directo>2){
+                printf("Cupo lleno, intente con otro tipo de boleto :)\n");
+                close(nuevo);
+            }else{
+                printf("Asientos restante %d\n", maximo_directo-cupo_directo);
+                printf("Nombre : %s\n", solicitud_recibida.nombre);
+                printf("Destino: %s\n", solicitud_recibida.destino);
+                printf("Horario: %s\n", solicitud_recibida.horario);
+                printf("Tipo de boleto: %s\n", solicitud_recibida.boleto_tipo);
+                printf("Costo de boleto: %d\n", solicitud_recibida.costo_boleto);
+
+        
+                // Calcular dinero total
+                dinero_total += solicitud_recibida.costo_boleto;
+        
+                // Registrar el dinero total recibido hasta ahora y cupo restante
+                printf("Dinero total recibido hasta ahora: %d\n", dinero_total);
+        
+                // Enviar confirmación al cliente
+                if (send(nuevo, "Solicitud recibida por el servidor\n", 35, 0) == -1) {
+                    perror("Error al enviar la confirmación al cliente");
+                    close(nuevo);
+                    continue;
+                }
+        
+                // Cerrar la conexión con el cliente
+                close(nuevo);
+
+            }
         } else if (strcmp(solicitud_recibida.boleto_tipo, "Gl Premier $150") == 0) {
             solicitud_recibida.costo_boleto = 150;
             cupo_premier++;
-            printf("Asientos restante %d\n", maximo_premier-cupo_premier);
-        }
-        
-        printf("Nombre : %s\n", solicitud_recibida.nombre);
-        printf("Destino: %s\n", solicitud_recibida.destino);
-        printf("Horario: %s\n", solicitud_recibida.horario);
-        printf("Tipo de boleto: %s\n", solicitud_recibida.boleto_tipo);
-        printf("Costo de boleto: %d\n", solicitud_recibida.costo_boleto);
+            if(cupo_premier>2){
+                 printf("Cupo lleno, intente con otro tipo de boleto :)\n");
+                 close(nuevo);
+             }else{
+                printf("Asientos restante %d\n", maximo_premier-cupo_premier);
+                printf("Nombre : %s\n", solicitud_recibida.nombre);
+                printf("Destino: %s\n", solicitud_recibida.destino);
+                printf("Horario: %s\n", solicitud_recibida.horario);
+                printf("Tipo de boleto: %s\n", solicitud_recibida.boleto_tipo);
+                printf("Costo de boleto: %d\n", solicitud_recibida.costo_boleto);
 
         
-        // Calcular dinero total
-        dinero_total += solicitud_recibida.costo_boleto;
+                // Calcular dinero total
+                dinero_total += solicitud_recibida.costo_boleto;
         
-        // Registrar el dinero total recibido hasta ahora y cupo restante
-        printf("Dinero total recibido hasta ahora: %d\n", dinero_total);
+                // Registrar el dinero total recibido hasta ahora y cupo restante
+                printf("Dinero total recibido hasta ahora: %d\n", dinero_total);
         
-        // Enviar confirmación al cliente
-        if (send(nuevo, "Solicitud recibida por el servidor\n", 35, 0) == -1) {
-            perror("Error al enviar la confirmación al cliente");
-            close(nuevo);
-            continue;
+                // Enviar confirmación al cliente
+                if (send(nuevo, "Solicitud recibida por el servidor\n", 35, 0) == -1) {
+                    perror("Error al enviar la confirmación al cliente");
+                    close(nuevo);
+                    continue;
+                }
+        
+                // Cerrar la conexión con el cliente
+                close(nuevo);
+             }
+            
         }
+
         
-        // Cerrar la conexión con el cliente
-        close(nuevo);
     }
     
     // Cerrar el socket principal (esto nunca se alcanza debido al bucle infinito)
