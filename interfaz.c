@@ -150,7 +150,7 @@ void on_button_show_data_clicked(GtkWidget *widget, gpointer data) { // boton de
         exit(EXIT_FAILURE);
     }
     
-    printf("Solicitud enviada al servidor.\n");
+    
     
     // Recibir la confirmación del servidor
     numbytes = recv(mi_socket, buffer, SIZE - 1, 0);
@@ -158,9 +158,11 @@ void on_button_show_data_clicked(GtkWidget *widget, gpointer data) { // boton de
         perror("Error al recibir la confirmación del servidor");
         exit(EXIT_FAILURE);
     }
-    buffer[numbytes] = '\0';
-    printf("%d bytes recibidos\n", numbytes);
-    printf("Recibido: %s\n", buffer);
+    
+    if (numbytes==0){ // VERIFICAMOS EL CUPO
+        printf("CUPO LLENO, ESCOJA OTRO TIPO DE BOLETO ;)\n");
+        exit(EXIT_FAILURE);
+    }
     
     // Cerrar el socket
     close(mi_socket);
